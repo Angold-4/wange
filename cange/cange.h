@@ -1,17 +1,20 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
-#include <iostream>
 
 #define DEBUG 1;
 
 /* the syntax of current open file */
 struct cangeSyntax {
   // each char array should end with a explicit NULL
+  char *name;
   char **filetype; // the type of current file, based on its postfix
   char **keywords; // the highlightable keywords
-  char **single_comment;
-  char **multi_comments;
+  char *single_comment;
+  char *multi_comments_beg;
+  char *multi_comments_end;
 };
 
 // a single line of the file that we are currently editing.
@@ -38,4 +41,13 @@ struct cangeConfig {
   struct cangeSyntax *syntax;   // Current syntax highlight, or NULL
   crow *crow;      // rows
 };
+
+
+
+//
+// config.c
+//
+
+void loadConfig(char *filename, struct cangeConfig *conf);
+
 

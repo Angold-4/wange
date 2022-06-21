@@ -22,15 +22,10 @@
  * SOFTWARE.
  */
 
-#include "./cange.hpp"
+#include "cange.h"
 
 static struct cangeConfig Config;
 
-
-
-void loadConfig(void) {
-
-};
 
 
 /* Try to get the number of cols and rows in the current terminal.
@@ -52,7 +47,7 @@ int getWindowSize(int ifd, int ofd, int *rows, int *cols) {
 
 void updateWindowSize(void) {
   if (getWindowSize(STDIN_FILENO, STDOUT_FILENO, &Config.srows, &Config.scols) == -1) {
-    std::cerr << "Unable to get the shell screen size (using ioctl)! \n";
+    fprintf(stderr, "Unable to get the shell screen size (using ioctl)! \n");
     exit(1);
   }
 }
@@ -69,21 +64,15 @@ void init(void) {
   Config.filename = NULL;
   Config.syntax = NULL;
   updateWindowSize();
-
-#ifdef DEBUG
-  std::cout << "rows: " << Config.srows << std::endl;
-  std::cout << "cols: " << Config.scols << std::endl;
-#endif
 }
-
 
 
 int main(int argc, char **argv) {
   if (argc != 2) {
-    std::cerr << "Usage: cange <filename> \n";
+    fprintf(stderr, "Usage: cange <filename> \n");
     exit(1);
   }
 
   init();
-  loadConfig();
+  loadConfig(argv[1], &Config);
 }
