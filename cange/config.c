@@ -59,7 +59,7 @@ void scheme(char* filename, struct cangeConfig *conf) {
       if ((p = strstr(filename, sche->filetype[j])) != NULL) {
 	if (p[len] == '\0') {
 	  conf->syntax = sche;
-	  printf("The scheme is: %s", sche->name);
+	  printf("The scheme is: %s\n", sche->name);
 	  return;
 	}
       }
@@ -71,8 +71,5 @@ void scheme(char* filename, struct cangeConfig *conf) {
 void loadConfig(char* filename, struct cangeConfig *conf) {
   // #1 select the syntax highlight scheme depending on the filename
   scheme(filename, conf);
-
-  // #2 Load the file in the editor memory
-
 };
 
