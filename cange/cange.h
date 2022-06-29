@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <sys/ioctl.h>
@@ -7,6 +8,16 @@
 
 #define DEBUG 1;
 
+/* Syntax highlight types */
+#define HL_NORMAL 0
+#define HL_NONPRINT 1
+#define HL_COMMENT 2     /* Single line comment. */
+#define HL_MLCOMMENT 3   /* Multi-line comment. */
+#define HL_KEYWORD1 4
+#define HL_KEYWORD2 5
+#define HL_STRING 6
+#define HL_NUMBER 7
+#define HL_MATCH 8       /* Search match. */
 
 /* the syntax of current open file */
 struct cangeSyntax {
